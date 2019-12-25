@@ -1,5 +1,5 @@
 import React from 'react';
 
 export const ItemRow = ()  => {
-    return <div/>;
+    return <div>Item row</div>;
 }

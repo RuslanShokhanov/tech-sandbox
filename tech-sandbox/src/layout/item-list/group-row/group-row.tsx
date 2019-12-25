@@ -1,5 +1,13 @@
-import React from 'react';
+import React from "react";
 
-export const GroupRow = ()  => {
-    return <div/>;
-}
+import { ItemRow } from "../item-row";
+
+import { Styled } from "./styled";
+
+export const GroupRow = () => {
+  return (
+    <Styled.GroupRow>
+      <ItemRow />
+    </Styled.GroupRow>
+  );
+};
