@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const ItemRow = styled.div`
+  text-transform: uppercase;
   background-color: #28a9ff;
   height: 25px;
   border-top: 1px solid #fff;

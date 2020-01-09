@@ -16,7 +16,7 @@ export const List = (props: ListProps) => {
     <Styled.List>
       {props.groups.map(group => (
         <GroupRow key={group.id} id={group.id} items={group.items} onItemClick={props.onItemClick}>
-          {group.title.toUpperCase()}
+          {group.title}
         </GroupRow>
       ))}
       <Footer />
