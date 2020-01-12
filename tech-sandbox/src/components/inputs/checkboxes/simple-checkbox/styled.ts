@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Label = styled.label`
-  display: block;
+  display: inline-block;
   position: relative;
   padding-left: 35px;
   margin-bottom: 12px;
