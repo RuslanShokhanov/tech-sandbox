@@ -1,4 +1,5 @@
 export interface MemoryCard {
     pairId: string;
-    name: string;
+	id: string;
+	image: string;
 }
