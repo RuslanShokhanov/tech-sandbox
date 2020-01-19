@@ -15,6 +15,8 @@ import Background7 from "./images/img7.png";
 import Background8 from "./images/img8.png";
 import Background9 from "./images/img9.png";
 import Background10 from "./images/img10.png";
+import Background11 from "./images/img11.png";
+import Background12 from "./images/img12.png";
 
 const sandCastleId = "memory-cards";
 
@@ -38,7 +40,11 @@ const cards: MemoryCard[] = [
     { pairId: "pair-9", id: "card-17", image: Background9 },
     { pairId: "pair-9", id: "card-18", image: Background9 },
     { pairId: "pair-10", id: "card-19", image: Background10 },
-    { pairId: "pair-10", id: "card-20", image: Background10 }
+    { pairId: "pair-10", id: "card-20", image: Background10 },
+    { pairId: "pair-11", id: "card-21", image: Background11 },
+    { pairId: "pair-11", id: "card-22", image: Background11 },
+    { pairId: "pair-12", id: "card-23", image: Background12 },
+    { pairId: "pair-12", id: "card-24", image: Background12 },
 ];
 
 const getCards = () => {

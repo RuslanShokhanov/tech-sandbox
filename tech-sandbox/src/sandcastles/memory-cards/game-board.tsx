@@ -1,101 +1,113 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState } from 'react';
 
-import { MemoryCard } from "./interfaces";
-import { Card } from "./card";
+import {
+    CardConfig,
+    UserChoiceConfig,
+    GameBoardProps,
+    UserAction
+} from './interfaces';
+import { chunkCards } from './actions';
+import { CardRow } from './card-row';
 
-import { Styled } from "./styled";
+import { Styled } from './styled';
 
-interface GameBoardProps {
-    cards: MemoryCard[];
-    errorsCount: number;
-}
+const ROTATE_DELAY = 500;
 
-interface CardRowProps {
-    cards: MemoryCard[];
-    canRotate: boolean;
-    onClick: (
-        cardId: string,
-        pairId: string,
-        isOpen: boolean,
-        setRotate: (value: boolean) => void
-    ) => void;
-}
-
-const CardRow = (props: CardRowProps) => {
+const CompleteGame = () => {
     return (
-        <Styled.CardRow>
-            {props.cards.map(card => (
-                <Card
-                    id={card.id}
-                    image={card.image}
-                    canRotate={props.canRotate}
-                    pairId={card.pairId}
-                    onClick={props.onClick}
-                />
-            ))}
-        </Styled.CardRow>
+        <>
+            <Styled.ResetButton onClick={() => document.location.reload()}>
+                Reset
+            </Styled.ResetButton>
+            <Styled.Ending>Excellent</Styled.Ending>
+        </>
     );
 };
 
-interface UserChoiceConfig {
-    cardId: string;
-    pairId: string;
-    isOpen: boolean;
-    setRotate: (value: boolean) => void;
-}
-
 export const GameBoard = (props: GameBoardProps) => {
-    const [userChoice, setUserChoice] = useState<UserChoiceConfig[]>([]);
+    const userChoice = useRef<UserChoiceConfig>({});
+    const [chosenCards, setChosenCards] = useState<CardConfig[]>([]);
+    const [canRotate, setCanRotate] = useState<boolean>(true);
+    const [userActions, setUserActions] = useState<UserAction>({
+        shots: 0,
+        correct: 0
+    });
 
-    const handleClick = (
-        cardId: string,
-        pairId: string,
-        isOpen: boolean,
-        setRotate: (value: boolean) => void
-    ) => {
-        if (userChoice.length < 2) {
-            setUserChoice([
-                ...userChoice,
-                { cardId, pairId, isOpen, setRotate }
-            ]);
+    const handleClick = (cardId: string) => {
+        setCanRotate(false);
+        const card = userChoice.current[cardId];
+
+        const concat = chosenCards.concat({
+            cardId,
+            pairId: card.pairId,
+            flip: card.flip,
+            setHasPair: card.setHasPair
+        });
+        setChosenCards(concat);
+    };
+
+    const rotateCards = () => {
+        chosenCards.forEach(cc => {
+            cc.flip();
+        });
+        setUserActions({
+            shots: userActions.shots + 1,
+            correct: userActions.correct
+        });
+        setChosenCards([]);
+    };
+
+    const markAsMatch = () => {
+        chosenCards.forEach(cc => {
+            cc.setHasPair(true);
+        });
+        setUserActions({
+            shots: userActions.shots + 1,
+            correct: userActions.correct + 1
+        });
+        setCanRotate(true);
+    };
+
+    const handleFlip = () => {
+        if (chosenCards.length < 2) {
+            setCanRotate(true);
+        }
+
+        if (chosenCards.length === 2) {
+            if (chosenCards[0].pairId !== chosenCards[1].pairId) {
+                setTimeout(rotateCards, ROTATE_DELAY);
+            } else {
+                markAsMatch();
+            }
+            setChosenCards([]);
         }
     };
 
-    const rotateUnmatchedCards = () => {
-        debugger;
-        if (userChoice.length === 2) {
-            userChoice.map(uc => uc.setRotate(true));
-        }
+    const registerCardOnBoard = (card: CardConfig) => {
+        userChoice.current = {
+            ...userChoice.current,
+            [card.cardId]: card
+        };
     };
 
-    const a = userChoice.length;
-
-    useEffect(() => {
-        rotateUnmatchedCards();
-    }, [a]);
+    const isCompleted = userActions.correct === props.cards.length / 2;
 
     return (
         <Styled.Board>
-            <CardRow
-                cards={props.cards.slice(0, 5)}
-                canRotate={userChoice.length < 2}
-                onClick={handleClick}
-            />
-            <CardRow
-                cards={props.cards.slice(5, 10)}
-                canRotate={userChoice.length < 2}
-                onClick={handleClick}
-            />
-            <CardRow
-                cards={props.cards.slice(10, 15)}
-                canRotate={userChoice.length < 2}
-                onClick={handleClick}
-            />
-            <CardRow
-                cards={props.cards.slice(15, 20)}
-                canRotate={userChoice.length < 2}
-                onClick={handleClick}
-            />
+            <Styled.ErrorsCounter>
+                {`Shots: ${userActions.shots}`}
+            </Styled.ErrorsCounter>
+            {chunkCards(props.cards, 6).map((chunk, index) => (
+                <CardRow
+                    key={index}
+                    cards={chunk}
+                    canRotate={canRotate}
+                    onClick={handleClick}
+                    onFlip={handleFlip}
+                    registerCard={registerCardOnBoard}
+                />
+            ))}
+            {isCompleted && <CompleteGame />}
         </Styled.Board>
     );
 };
