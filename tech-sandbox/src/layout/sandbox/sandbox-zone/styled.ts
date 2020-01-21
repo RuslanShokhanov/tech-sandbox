@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const SandboxZone = styled.div`
-  padding: 10px;
+  padding: 40px;
   background-color: #fff;
   flex: 1;
 `;

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-import { CardConfig } from './interfaces';
+import { CardConfig } from "./interfaces";
 
-import { Styled } from './styled';
+import { Styled } from "./styled";
 
 interface CardRenderProps {
     id: string;
@@ -58,7 +58,7 @@ export const Card = (props: CardRenderProps) => {
                 hasPair={hasPair}
             >
                 <Styled.CardBack visible={!isOpen}>
-                    <Styled.CardBackContent>0</Styled.CardBackContent>
+                    <Styled.CardBackContent />
                 </Styled.CardBack>
                 <Styled.CardFront visible={isOpen} image={props.image} />
             </Styled.Card>

@@ -2,6 +2,7 @@ export interface Group {
   id: string;
   title: string;
   items: SandCastle[]
+  icon: React.ComponentType;
 }
 
 export interface SandCastle {

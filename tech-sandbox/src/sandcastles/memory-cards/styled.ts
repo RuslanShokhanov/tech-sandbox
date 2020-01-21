@@ -1,8 +1,10 @@
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css, keyframes } from "styled-components";
+
+import CardBackImage from "./images/card-back.png";
 
 const cardColor = {
-    back: '#eeeeee',
-    backContent: '#558c62'
+    back: "#eeeeee",
+    backContent: "#558c62"
 };
 
 const rotateCard = keyframes`
@@ -24,7 +26,7 @@ const CardFront = styled.div<{ visible: boolean; image: string }>`
     background-size: 100% 100%;
     backface-visibility: hidden;
     border-radius: 5px;
-    z-index: ${props => (props.visible ? '1' : '-1')};
+    z-index: ${props => (props.visible ? "1" : "-1")};
 `;
 
 const CardBack = styled.div<{ visible: boolean }>`
@@ -33,13 +35,15 @@ const CardBack = styled.div<{ visible: boolean }>`
     width: 100%;
     background-color: ${cardColor.back};
     border-radius: 5px;
-    z-index: ${props => (props.visible ? '1' : '-1')};
+    z-index: ${props => (props.visible ? "1" : "-1")};
 `;
 
 const CardBackContent = styled.div`
     height: 130px;
     width: 180px;
-    background-color: ${cardColor.backContent};
+	background-image: url(${CardBackImage});
+	transform-style: preserve-3d;
+	background-size: 100% 100%;
     border-radius: 5px;
     margin: 10px 10px;
     color: ${cardColor.back};
@@ -65,11 +69,11 @@ const Card = styled.div<{
             ? css`
                   ${rotateCard} 0.4s
               `
-            : 'none'};
+            : "none"};
 
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: all 1s ease;
-    opacity: ${props => (props.hasPair ? '0.15' : '1')};
+    opacity: ${props => (props.hasPair ? "0.15" : "1")};
 
     :hover {
         box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
