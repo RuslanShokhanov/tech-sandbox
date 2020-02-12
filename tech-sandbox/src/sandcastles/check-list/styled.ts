@@ -1,24 +1,30 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const Task = styled.div<{ completed: boolean }>`
-  .container {
-	font-family: "roboto";
-	font-size: 20px;
-    color: ${props => (props.completed ? "lightgrey" : "black")};
-    text-decoration: ${props => (props.completed ? "line-through" : "none")};
-  }
+    .container {
+        font-family: 'roboto';
+        font-size: 20px;
+        color: ${props => (props.completed ? 'lightgrey' : 'black')};
+        text-decoration: ${props =>
+            props.completed ? 'line-through' : 'none'};
+    }
 `;
 
-const Remark = styled.div`
-  margin-left: 3px;
-  display: inline-block;
-  color: green;
-  font-style: italic;
-  font-size: 12px;
-  border: 1px solid green;
-  border-radius: 5px;
-  font-variant: small-caps;
-  font-family: "roboto";
+const Progress = styled.div`
+    height: 225px;
+    width: 225px;
+    min-height: 225px;
+    min-width: 225px;
+    margin-left: 60px;
+
+    .CircularProgressbar-text {
+        font-family: 'roboto';
+    }
 `;
 
-export const Styled = { Remark, Task };
+const CheckList = styled.div`
+    display: flex;
+    padding: 30px 60px;
+`;
+
+export const Styled = { CheckList, Task, Progress };
