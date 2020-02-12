@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
-import { GroupRow } from "./group-row";
-import { Group } from "../../sandcastles/interfaces";
+import { GroupRow } from './group-row';
+import { Group } from '../../sandcastles/interfaces';
 
-import { Styled } from "./styled";
+import { Styled } from './styled';
 
 interface ListProps {
     groups: Group[];

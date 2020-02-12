@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const Icon = styled.span`
     padding-top: 3px;
@@ -18,18 +18,24 @@ const Expand = styled.span`
 `;
 
 const Group = styled.div`
+    .ReactCollapse--collapse {
+        transition: height 0.2s;
+    }
+`;
+
+const Title = styled.div`
     text-transform: uppercase;
     line-height: 2;
-    height: 30px;
     background-color: #2f363c;
     color: #b4b4b4;
     font-size: 15px;
-    font-family: "roboto";
+    font-family: 'roboto';
     font-weight: 400;
     border-top: 1px solid #43484e;
     cursor: pointer;
     text-indent: 10px;
     user-select: none;
+
     :hover {
         color: #68c968;
 
@@ -43,4 +49,4 @@ const Group = styled.div`
     }
 `;
 
-export const Styled = { Expand, Group, Icon };
+export const Styled = { Expand, Group, Icon, Title };

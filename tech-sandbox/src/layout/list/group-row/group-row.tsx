@@ -1,9 +1,10 @@
-import React, { PropsWithChildren, useState } from "react";
+import React, { PropsWithChildren, useState } from 'react';
+import { Collapse } from 'react-collapse';
 
-import { Item, ItemRow } from "../item-row";
-import { Icons } from "../../../icons/index";
+import { Item, ItemRow } from '../item-row';
+import { Icons } from '../../../icons/index';
 
-import { Styled } from "./styled";
+import { Styled } from './styled';
 
 interface GroupRowProps {
     id: string;
@@ -22,8 +23,8 @@ export const GroupRow = (props: PropsWithChildren<GroupRowProps>) => {
     const GroupIcon = props.icon;
 
     return (
-        <>
-            <Styled.Group onClick={handleGroupClick} className='aaa'>
+        <Styled.Group>
+            <Styled.Title onClick={handleGroupClick}>
                 <Styled.Icon>
                     <GroupIcon />
                 </Styled.Icon>
@@ -31,10 +32,9 @@ export const GroupRow = (props: PropsWithChildren<GroupRowProps>) => {
                 <Styled.Expand>
                     {expanded ? <Icons.ArrowDown /> : <Icons.ArrowRight />}
                 </Styled.Expand>
-            </Styled.Group>
-
-            {expanded &&
-                props.items.map(item => (
+            </Styled.Title>
+            <Collapse isOpened={expanded}>
+                {props.items.map(item => (
                     <ItemRow
                         key={item.id}
                         id={item.id}
@@ -43,6 +43,7 @@ export const GroupRow = (props: PropsWithChildren<GroupRowProps>) => {
                         {item.title}
                     </ItemRow>
                 ))}
-        </>
+            </Collapse>
+        </Styled.Group>
     );
 };
